@@ -18,11 +18,16 @@
 
 ## 目录
 
-### 线性回归
+### [线性回归](./线性回归.ipynb)
+### [逻辑回归](./逻辑回归.ipynb)
+### [感知机](./感知机.ipynb)
+### [K最近邻](./K最近邻.ipynb)
 
 ---
 # 参考
 [机器学习基础][0]
+[逻辑回归成本函数推导过程][1]
 
 ---
 [0]: https://github.com/zotroneneis/machine_learning_basics  "美女研究生大作"
+[1]: https://stats.stackexchange.com/questions/278771/how-is-the-cost-function-from-logistic-regression-derivated "逻辑回归成本函数推导过程"
