@@ -27,7 +27,7 @@
 # 参考
 [机器学习基础][0]
 
-[逻辑回归成本函数推导过程][1]
+[逻辑回归成本函数及Sigmoid函数推导过程][1]
 
 ---
 [0]: https://github.com/zotroneneis/machine_learning_basics  "美女研究生大作"
