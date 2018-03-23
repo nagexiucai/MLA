@@ -23,6 +23,7 @@
 ### [感知机](./感知机.ipynb)
 ### [K最近邻](./K最近邻.ipynb)
 ### [K均值聚类](./K均值聚类.ipynb)
+### [一个隐含层的简单神经网络](./一个隐含层的简单神经网络.ipynb)
 
 ---
 # 参考
@@ -30,6 +31,12 @@
 
 [逻辑回归成本函数及Sigmoid函数推导过程][1]
 
+[吴恩达斯坦福机器学习笔记][2]
+
+[向后传播][3]
+
 ---
 [0]: https://github.com/zotroneneis/machine_learning_basics  "美女研究生大作"
 [1]: https://stats.stackexchange.com/questions/278771/how-is-the-cost-function-from-logistic-regression-derivated "逻辑回归成本函数推导过程"
+[2]: https://github.com/yoyoyohamapi/mit-ml "公开在Coursera上的"
+[3]: https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/ "向后传播演算"
