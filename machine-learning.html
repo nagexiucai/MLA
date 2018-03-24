@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'/>
+    <title>Python机器学习之SKL和TF</title>
+    <meta name='keywords' content='那个秀才'/>
+    <meta name='description' content='面向过程 面向对象 函数式 POP OOP LAMBDA HowtoPython FeiYang Vast SKLearn TensorFlow NN __name__ __class__ __module__ __package__'/>
+    <!-- by nagexiucai.com -->
+    <link rel="shortcut icon" type="image/x-icon" href="pictures/favicon.ico">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.bootcss.com/prism/1.5.1/themes/prism.min.css'/>
+    <link rel='stylesheet' href='https://cdn.bootcss.com/KaTeX/0.9.0/katex.min.css'/>
+    <script src='https://cdn.bootcss.com/marked/0.3.6/marked.min.js'></script>
+    <script src='https://cdn.bootcss.com/prism/1.5.1/prism.min.js'></script>
+    <script src='https://cdn.bootcss.com/prism/1.5.1/components/prism-python.min.js'></script>
+    <script src='https://cdn.bootcss.com/KaTeX/0.9.0/katex.min.js'></script>
+    <script src='js/nbviewer.js'></script>
+    <style type='text/css'>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #eee;
+        font-size: 1.375em;
+      }
+      .navigation {
+        position: fixed;
+        z-index: 999;
+        width: 240px;
+        margin-top: 40px;
+      }
+      .content {
+        width: calc(100% - 240px);
+        min-width: 640px;
+        height: 100%;
+        margin-left: 240px;
+      }
+      .navigation, .content {
+        display: inline-block;
+      }
+      .navigation a {
+        display: block;
+        text-decoration: none;
+        padding-left: 17px;
+      }
+      .illustration-title {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='navigation'>
+      <a href='/'>返回首页</a>
+      <hr/>
+      <a href='javascript:void(0)' onclick="goto(this)">线性回归</a>
+      <a href='javascript:void(0)' onclick="goto(this)">逻辑回归</a>
+      <a href='javascript:void(0)' onclick="goto(this)">感知机</a>
+      <a href='javascript:void(0)' onclick="goto(this)">K最近邻</a>
+      <a href='javascript:void(0)' onclick="goto(this)">K均值聚类</a>
+      <a href='javascript:void(0)' onclick="goto(this)">一个隐含层的简单神经网络</a>
+      <a href='javascript:void(0)' onclick="goto(this)">多项逻辑回归</a>
+      <a href='javascript:void(0)' onclick="goto(this)">逻辑回归成本函数推导过程</a>
+      <a href='javascript:void(0)' onclick="goto(this)">Sigmoid函数推导过程</a>
+    </div>
+    <div class='content' id='content'></div>
+    <script type='text/javascript'>
+      function texpatch(text, e) {
+        katex.render(text, e, {
+          displayMode: true,
+          macros: {
+            "\\RR": "\\mathbb{R}"
+          }
+        });
+      }
+      function render(json) {
+        var c = document.getElementById("content");
+        var o = JSON.parse(json);
+        nbv.render(o, c);
+        var maths = document.getElementsByClassName("math");
+        for(var i=0; i<maths.length; i++) {
+          texpatch(maths[i].getAttribute("tex"), maths[i]);
+        }
+      }
+      function goto(o) {
+        $.ajax({
+          url: "./" + o.text + ".ipynb",
+          success: function(data, status, xhr) {
+            render(data);
+            $("#content").animate({scrollTop: $("#content").offset().top}, 500); // 平滑跳转到页顶
+          },
+          error: function(xhr, status, data) {
+            console.log(data);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
