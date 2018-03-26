@@ -69,13 +69,13 @@ var nbv = (function() {
 
     // fixed: postprocessing of tex by nagexiucai
     //        must do below after [marked](https://github.com/chjj/marked)
-    //        for exsample: render tex by '[kates](https://github.com/Khan/KaTeX)
+    //        for exsample: render tex by [kates](https://github.com/Khan/KaTeX)
     // var maths = document.getElementsByClassName("math");
     // for(var i=0; i<maths.length; i++) {
-    //   katex.render(maths[i].getAttribute("tex"), maths[i], {
+    //   katex.render(maths[i].getAttribute('tex'), maths[i], {
     //     displayMode: true,
     //     macros: {
-    //       "\\RR": "\\mathbb{R}"
+    //       '\\RR': '\\mathbb{R}'
     //     }
     //   });
     // }
@@ -178,7 +178,14 @@ var nbv = (function() {
 
         dm = d.createElement('pre');
         dm.style.margin = 0;
-        dm.className = 'illustration-title'; // fixed: some outputs may be customized hidden, by nagexiucai
+        // fixed: some outputs may be customized hidden, by nagexiucai
+        //        such as:
+        // <style type='text/css'>
+        //   .illustration-title {
+        //     display: none;
+        //   }
+        // </style>
+        dm.className = 'illustration-title';
         dm.textContent = dt.data[fmt].join('');
         break;
 
