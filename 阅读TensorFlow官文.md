@@ -35,3 +35,4 @@
 [4]:http://wiki.jikexueyuan.com/project/tensorflow-zh/
 
 [5]:./平面拟合.ipynb
+[6]:./TF的套路.ipynb
