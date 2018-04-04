@@ -9,12 +9,14 @@
 
 ## 起步
 - [介绍][5]
-- 安装
-- 套路
+- [安装][6]
+- [套路][7]
 
 ## 入门
-- 总览
+- [总览][8]
 - MNIST
+ - [机器学习新手][9]
+ - [机器学习老手][10]
 - 框架
 - NN
 - 表达方式
@@ -34,5 +36,9 @@
 [3]:http://tensorflow.org/ "缺失"
 [4]:http://wiki.jikexueyuan.com/project/tensorflow-zh/
 
-[5]:./平面拟合.ipynb
-[6]:./TF的套路.ipynb
+[5]:./TF的平面拟合.ipynb
+[6]:./TF入门之安装.md
+[7]:./TF的套路.ipynb
+[8]:./TF入门之总览.md
+[9]:./TF的MNIST入门.ipynb
+[10]:./TF的MNIST提高.ipynb
