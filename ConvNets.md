@@ -120,6 +120,90 @@
 
 ![][10]
 
+即便如此（that said），近期的论文“[网络嵌套（Network in Network）](http://arxiv.org/abs/1312.4400)”，提出一个新层“Mlpconv”。该模型中， $A$ 应当有多层神经元，最后一层输出该区域的高级特征。论文的模型达到某种令人十分钦佩的结果，在一许多基准数据集合上创造新的“艺术境界”。
+
+![][11]
+
+即便如此，着眼本文的目的，将聚焦各标准卷积层，再此考虑这些已经足够。
+
+## 卷积神经网络结果
+早些时候，笔者提到在计算机视觉采用卷积神经网络取得的最新突破。继续之前，笔者愿意简短地论述某些成果作为动力。
+
+[在2012年，Alex Krizhevsky，Ilya Sutsskever及Geoff Hinton放风水面外已存在图片分类成果（blew existing image classification results out of the water）](http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf)。
+
+三位的进展是把一群不同的片结合在一起的结果，使用GPU集群训练一个非常大型的、深度的、神经网络，采用一种新的神经元（ReLU）和一种新的技术降低过拟合问题（Dropout），利用以组十分大的拥有众多图片分类的数据集合（[ImageNet](http://www.image-net.org/)），当然，这是一种卷积神经网络。
+
+三位的架构，示意如下，非常深度的。拥有5个卷积层，点缀着池化层，还有3个全连接层。早期的层分离到2块GPU上。
+
+![][12]
+
+三位训练该网络来把图片分类为上千种不同的种类。
+
+随机猜测，当时一般模型猜对的概率大概是千分之一，而AlexNet能达到百分之六十三！做五次猜测就有一个是正确答案的概率更高达百分之八十五！
+
+![][13]
+
+甚至它的某些错误对笔者来说似乎相当合乎情理（seem pretty reasonable to me）！
+
+大家也可以调查该网络的第一层学习做什么。
+
+回想卷积层分离到2块GPU上，信息不能再各层之间来回传递，因此分叉（split side）以一种真实方式断开（连接），事实证明（原来），每次运行该模型，两个分叉各司其职（specialize）。
+
+![第一个卷积层学习到的滤波器，上半部分对应第一块显卡、下半部分对应第二块显卡。][14]
+
+一个分叉的神经元聚焦灰度，学习不同方向和尺寸的边缘检测；一个分叉的神经元专职处理彩色和文本，检测色比（color contrast）和模式。
+
+记住，神经元是随机初始化的！没有人参与将神经元分为边缘检测或色比模式处理——以这种方式划分。它仅仅出现在图片分类网络。
+
+卓越的成就（以及当时其余令人兴奋的结果）只是开始。
+
+很快被一群改进实现的测试工作跟进并逐渐提升结果，或将该模型应用到别的领域。此外，神经网络社区，计算机视觉社区，很多项目采用卷积神经网络。
+
+卷积神经网络是计算机视觉和现代模式识别领域的基本工具。
+
+## 卷积神经网络形式化
+考虑，一个一维卷积层，有着输入 $\{x_n\}$ 和输出 $\{y_n\}$ :
+
+![][15]
+
+它相对容易表述输出和输入的关系（outputs in terms of inputs）： $$y_n=A(x_n,x_{n+1})$$
+
+对上式举个例子： $$y_0=A(x_0,x_1)$$ $$y_1=A(x_1,x_2)$$
+
+近似地，如果大家考虑一个二维卷积层，有着输入 $\{x_{n,m}\}$ 和输出 $\{y_{n,m}\}$ ：
+
+![][16]
+
+同样，可以用如下表达是来说明输出和输入的关系： $$y_{n,m}=A\left(\begin{array}{ccc} x_{n,~m}, & x_{n+1,~m} ~\\ x_{n,~m+1}, & x_{n+1,~m+1} \\\end{array}\right)$$
+
+对上式举个例子： $$y_{0,0}=A\left(\begin{array}{ccc} x_{0,~0}, & x_{1,~0}, ~\\ x_{0,~1} & x_{1,~1} \\\end{array}\right)$$
+
+如果一将 $A(x)$ 写成等式： $A(x)=\sigma(Wx + b)$
+
+则有实现一个卷积神经网络所需的一切，至少理论上是的。
+
+实践中，这通常不是考虑卷积神经网络最好的的方法。这儿是供选择的构想，根据数学操作，叫做卷积，经常更有用！
+
+卷积操作时一个强大的工具。在数学运算中，出现在不同背景下（come up in diverse contexts），从偏微分方程学习到概率论。部分的因其在偏微分方程的角色，卷积在物理科学是非常重要的。也在别的应用英灵扮演重要角色，例如计算机图形和信号处理。
+
+对于大家，卷积将带来很多哦好处。
+
+首先，卷积允许大家创建更有效地卷积层实现，相对于通俗视角（naive perspective）可能启发的思路。
+
+其次，卷积会把公式中的杂乱去除，处理显示为 $x_i$ 的目前记账式的部分，让公式的表述不再混乱，但是这只是因为大家还没有陷入狡猾的情况。
+
+最后，卷积将给大家提供值得注意地推理卷积层的不同视角。
+
+	老子钦佩阁下计算方法的优雅；乘真正数学之马越过计算领域一定很美，因为大家的偏好一定让步行很艰难！ —— 阿尔伯特·爱因斯坦
+
+## 继续该系列的帖子
+[裂解卷积][17]！
+
+# 说明
+本文是[卷积神经网络及其一般化系列][18]的一部分。
+
+前两篇为熟悉深度学习的人而作，后续的可能每个人都会感兴趣。
+
 ---
 [0]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv2-9x5-Conv2Conv2.png "2D-CNN"
 [1]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv-9-xs.png "Audio-Samples"
@@ -132,3 +216,11 @@
 [8]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv2-9x5-Conv2Conv2.png "2D-Convolution-Kernel-Two-Layers"
 [9]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv2-9x5-Conv2Max2Conv2.png "2D-Convolution-Kernel-Multiple-Layers-With-Max-Pooling"
 [10]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv-A.png "What-Is-A-Neur"
+[11]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv-A-NIN.png "Network-in-Network"
+[12]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/KSH-arch.png "AlexNet-2012"
+[13]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/KSH-results.png "AlexNet-2012-Results"
+[14]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/KSH-filters.png "AlexNet-2012-Filters"
+[15]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv-9-Conv2-XY.png "Conv-9-Conv2-XY"
+[16]:http://colah.github.io/posts/2014-07-Conv-Nets-Modular/img/Conv2-5x5-Conv2-XY.png "Conv2-5x5-Conv2-XY"
+[17]:http://colah.github.io/posts/2014-07-Understanding-Convolutions/ "理解卷积"
+[18]:https://github.com/colah/Conv-Nets-Series "卷积神经网络及其一般化系列"
